@@ -1,4 +1,4 @@
-function Set-Version {
+function gulp.version {
     $workingDirectory = (Get-Item .).FullName;
 
     $json_package_path = $workingDirectory + '\package.json';
@@ -33,7 +33,7 @@ function gulp.bundle {
         Set-Location $WorkDirectory
     }
 
-    Set-Version
+    gulp.version
 
     $command = 'gulp clean';
     Invoke-Expression $command;
@@ -73,3 +73,4 @@ function gulp.serve {
   Export-ModuleMember -Function gulp.serve
   Export-ModuleMember -Function gulp.bundle
   Export-ModuleMember -Function gulp.ext
+  Export-ModuleMember -Function gulp.version
