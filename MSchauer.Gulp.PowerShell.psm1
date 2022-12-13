@@ -68,9 +68,16 @@ Start-Process $url;
 function gulp.serve {
     $command = 'npm run serve';
     Invoke-Expression $command;
-  }
+}
+
+function gulp.wp {
+    $jsondata = Get-Content -Raw -Path 'config/serve.json' | ConvertFrom-Json
+    $url = $jsondata.initialPage;
+    Start-Process $url;
+}
 
   Export-ModuleMember -Function gulp.serve
   Export-ModuleMember -Function gulp.bundle
   Export-ModuleMember -Function gulp.ext
   Export-ModuleMember -Function gulp.version
+  Export-ModuleMember -Function gulp.wp
