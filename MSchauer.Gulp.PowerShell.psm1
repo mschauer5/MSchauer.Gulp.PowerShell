@@ -70,6 +70,18 @@ function gulp.serve {
     Invoke-Expression $command;
 }
 
+function gulp.serve.ext {
+    gulp.ext
+    $command = 'npm run serve';
+    Invoke-Expression $command;
+}
+
+function gulp.serve.wp {
+    gulp.wp
+    $command = 'npm run serve';
+    Invoke-Expression $command;
+}
+
 function gulp.wp {
     $jsondata = Get-Content -Raw -Path 'config/serve.json' | ConvertFrom-Json
     $url = $jsondata.initialPage;
@@ -77,6 +89,8 @@ function gulp.wp {
 }
 
   Export-ModuleMember -Function gulp.serve
+  Export-ModuleMember -Function gulp.serve.ext
+  Export-ModuleMember -Function gulp.serve.wp
   Export-ModuleMember -Function gulp.bundle
   Export-ModuleMember -Function gulp.ext
   Export-ModuleMember -Function gulp.version
