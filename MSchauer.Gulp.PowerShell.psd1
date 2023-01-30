@@ -12,7 +12,7 @@
 RootModule = 'MSchauer.Gulp.PowerShell.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.2.1'
+ModuleVersion = '1.2.2'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -69,7 +69,7 @@ Description = 'PowerShell module addon for working with Gulp'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport =  @("gulp.serve","gulp.bundle","gulp.ext","gulp.wp","gulp.version")
+FunctionsToExport =  @("gulp.serve","gulp.serve.ext","gulp.serve.wp","gulp.bundle","gulp.ext","gulp.wp","gulp.version")
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()
