@@ -44,6 +44,35 @@ function gulp.bundle {
 
 }
 
+function gulp.bundle.deploy {
+    gulp.version
+    $command = 'gulp clean';
+    Invoke-Expression $command;
+    $command = 'gulp bundle --ship';
+    Invoke-Expression $command;
+    $command = 'gulp package-solution --ship';
+    Invoke-Expression $command;
+
+    $workingDirectory = (Get-Item .).FullName;
+
+    $json_package_solution_path = $workingDirectory + '\config\package-solution.json';
+    $json_package_solution = Get-Content -Raw -Path $json_package_solution_path | ConvertFrom-Json;
+
+    $filePath = "$($workingDirectory)\sharepoint\$($json_package_solution.paths.zippedPackage.replace('/', '\'))";
+
+    $json_serve_path = $workingDirectory + '\config\serve.json';
+    $json_serve = Get-Content -Raw -Path $json_serve_path | ConvertFrom-Json;
+
+    $url = $json_serve.initialPage;
+
+    $url = $url.Substring(0,$url.indexOf("/_layouts"));
+
+    Connect-PnPOnline.ms -Url $Url
+
+    Add-PnPApp -Path $filePath -Scope Site -Publish -Overwrite -SkipFeatureDeployment
+
+}
+
 function gulp.ext {
  $jsondata = Get-Content -Raw -Path 'config/serve.json' | ConvertFrom-Json
  $pageUrl = $jsondata.serveConfigurations.default.pageUrl;
@@ -95,3 +124,4 @@ function gulp.wp {
   Export-ModuleMember -Function gulp.ext
   Export-ModuleMember -Function gulp.version
   Export-ModuleMember -Function gulp.wp
+  Export-ModuleMember -Function gulp.bundle.deploy
